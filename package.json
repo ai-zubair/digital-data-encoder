@@ -1,0 +1,25 @@
+{
+  "name": "digital-data-encoder",
+  "version": "1.0.0",
+  "description": "Visulally illustrative digital data encoder utlizing various line encoding schemes.",
+  "scripts": {
+    "start": "parcel ./index.html",
+    "predeploy": "rm -rf ./build && parcel build index.html --dist-dir ./build --public-url /digital-data-encoder/",
+    "deploy": "gh-pages -d ./build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ai-zubair/digital-data-encoder.git"
+  },
+  "author": "Zubair Bashir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ai-zubair/digital-data-encoder/issues"
+  },
+  "homepage": "https://github.com/ai-zubair/digital-data-encoder#readme",
+  "dependencies": {
+    "gh-pages": "^3.1.0",
+    "parcel": "^2.0.0-beta.1",
+    "typescript": "^3.9.7"
+  }
+}
