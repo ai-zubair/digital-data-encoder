@@ -1,1 +1,3 @@
-console.log("You're in action bro!");
+import { LandingBanner } from "./components/LandingBanner/LandingBanner";
+
+customElements.define("landing-banner", LandingBanner);
