@@ -9,7 +9,7 @@ const landingBannerContent = `
     <p class="landing-text" id="landing-text">
       <span class="landing-text-word" id="digital">0100110</span>
       <span class="landing-text-word" id="data">0010</span>
-      <span class="landing-text-word" id="encoder">1101001001</span> 
+      <span class="landing-text-word" id="encoder">110100100</span> 
     </p>
   </div>
 `;

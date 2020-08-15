@@ -25,6 +25,15 @@
         &:nth-child(2),&:nth-child(3){
           margin-left: -2px;
         }
+        &:nth-child(1){
+          width: 204px;
+        }
+        &:nth-child(2){
+          width: 152px;
+        }
+        &:nth-child(3){
+          width: 252px;
+        }
         &:nth-child(1)::before,&:nth-child(2)::after, &:nth-child(3)::before{
           position: absolute;
           width: 0%;

@@ -1,4 +1,5 @@
 import { landingBannerContent } from "./landingBannerContent";
+import { getRandomBit } from "../utils";
 
 class LandingBanner extends HTMLElement{
 
@@ -24,36 +25,36 @@ class LandingBanner extends HTMLElement{
     const shadowRoot = this.shadowRoot as ShadowRoot;
     const bannerWords = shadowRoot?.querySelectorAll(".landing-text-word");
     
-    const decryptedWords = ["DIGITAL","DATA","ENCODER"]
+    const decryptedWords = ["DIGITAL","DATA","ENCODER"];
     const stringToDecrpytTo = decryptedWords.join("");
-    const totalStringLength = stringToDecrpytTo.length
+    const totalStringLength = stringToDecrpytTo.length;
 
     let decryptedLength = 0;
-    let frames = 0;
+    let framesElapsed = 0;
+    let animationFrameID: number;
 
     const decryptingText = (): void=>{
-      frames++;
-      const decryptCharacterInThisFrame = (frames % 5 === 0) ? true : false;
-      if(decryptedLength < totalStringLength && decryptCharacterInThisFrame){
-        
-        const decryptedCharacterIndex = decryptedLength;
-        const decryptedString = stringToDecrpytTo.substring(0, decryptedCharacterIndex+1);
-        
-        decryptedLength++;
-        
-        const encryptedString = this.getRandomBit(totalStringLength - decryptedLength);
-        const newTargetString = decryptedString + encryptedString;
-
-        bannerWords.forEach( (bannerWord, wordIndex) => {
-          const bannerWordStartIndex = stringToDecrpytTo.indexOf(decryptedWords[wordIndex]);
-          const bannerWordEndIndex = bannerWordStartIndex + decryptedWords[wordIndex].length;
-          bannerWord.innerHTML = newTargetString.substring(bannerWordStartIndex,bannerWordEndIndex);
-        })
+      framesElapsed++;
+      const decryptCharacterInThisFrame = (framesElapsed % 4 === 0) ? true : false;
+      if( decryptedLength >= totalStringLength ){
+        cancelAnimationFrame(animationFrameID);
+      }else{
+        if(decryptCharacterInThisFrame){
+          const decryptedCharacterIndex = decryptedLength;
+          const decryptedString = stringToDecrpytTo.substring(0, decryptedCharacterIndex+1);
+          decryptedLength++;
+          const encryptedString = getRandomBit(totalStringLength - decryptedLength);
+          const newTargetString = decryptedString + encryptedString;
+          bannerWords.forEach( (bannerWord, wordIndex) => {
+            const bannerWordStartIndex = stringToDecrpytTo.indexOf(decryptedWords[wordIndex]);
+            const bannerWordEndIndex = bannerWordStartIndex + decryptedWords[wordIndex].length;
+            bannerWord.innerHTML = newTargetString.substring(bannerWordStartIndex,bannerWordEndIndex);
+          })
+        }
+        animationFrameID = requestAnimationFrame(decryptingText);
       }
-      requestAnimationFrame(decryptingText);
     }
-
-    const animationID = requestAnimationFrame(decryptingText);
+    decryptingText();
   }
 
   drawSignaLikeBorders = (): void => {
@@ -64,15 +65,6 @@ class LandingBanner extends HTMLElement{
         bannerWords[wordIndex].classList.add("draw-borders");
       }
     })
-  }
-
-  getRandomBit = ( stringLength: number ): string => {
-    let randomString = ""
-    for (let length = 0; length < stringLength; length++) {
-      const randomBit = Math.floor(Math.random()*2);
-      randomString+=randomBit;
-    }
-    return randomString;
   }
 
   render = (): void => {
