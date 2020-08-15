@@ -4,6 +4,8 @@ import { getRandomBit } from "../utils";
 class LandingBanner extends HTMLElement{
 
   private domContent: string = landingBannerContent;
+  private textDecrypted: boolean = false;
+  public isHidden: boolean = false;
 
   constructor(){
     super();
@@ -37,6 +39,7 @@ class LandingBanner extends HTMLElement{
       framesElapsed++;
       const decryptCharacterInThisFrame = (framesElapsed % 4 === 0) ? true : false;
       if( decryptedLength >= totalStringLength ){
+        this.textDecrypted = true;
         cancelAnimationFrame(animationFrameID);
       }else{
         if(decryptCharacterInThisFrame){
@@ -67,8 +70,8 @@ class LandingBanner extends HTMLElement{
     })
   }
 
-  showNextButton = ( timestamp: DOMHighResTimeStamp ) => {
-    if(timestamp<= 1700){
+  showNextButton = () => {
+    if(!this.textDecrypted){
       requestAnimationFrame(this.showNextButton);
     }else{
       const nextButton = this.shadowRoot?.getElementById("next-button") as HTMLButtonElement;
@@ -79,7 +82,7 @@ class LandingBanner extends HTMLElement{
   render = (): void => {
     this.showDecryptingText();
     this.drawSignaLikeBorders();
-    this.showNextButton(0);
+    this.showNextButton();
   }
 
 }
