@@ -10,8 +10,9 @@
     box-shadow: $box-shadow;
     padding: $padding-max;
     border-radius: $border-radius;
-    background-color: $background-color;
+    background: $background;
     color: $text-color;
+    position: relative;
     width: 645px;
     .landing-text{
       box-sizing: inherit;
@@ -78,6 +79,37 @@
                       width 0.25s linear 1.0s,
                       height 0.25s linear 1.25s;
         }
+      }
+    }
+    .next-button{
+      position: absolute;
+      contain: content;
+      top: 100%;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease ;
+      transform: scale(0);
+      .button-text{
+        background: $background;
+        padding: $padding-med;
+        font-size: 20px;
+        font-weight: 100;
+        font-family: sans-serif;
+        box-shadow: none;
+        border-radius: $border-radius;
+        transition: all 0.2s ease;
+        &:hover{
+          cursor: pointer;
+          box-shadow: $box-shadow;
+          background: $background-reversed;
+        }
+      }
+      &.pop-out{
+        transform: scale(1);
       }
     }
   }

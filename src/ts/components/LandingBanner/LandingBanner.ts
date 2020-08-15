@@ -3,7 +3,7 @@ import { getRandomBit } from "../utils";
 
 class LandingBanner extends HTMLElement{
 
-  private domContent: string = landingBannerContent; 
+  private domContent: string = landingBannerContent;
 
   constructor(){
     super();
@@ -56,7 +56,7 @@ class LandingBanner extends HTMLElement{
     }
     decryptingText();
   }
-
+  
   drawSignaLikeBorders = (): void => {
     const shadowRoot = this.shadowRoot as ShadowRoot;
     const bannerWords = shadowRoot?.querySelectorAll(".landing-text-word");
@@ -67,9 +67,19 @@ class LandingBanner extends HTMLElement{
     })
   }
 
+  showNextButton = ( timestamp: DOMHighResTimeStamp ) => {
+    if(timestamp<= 1700){
+      requestAnimationFrame(this.showNextButton);
+    }else{
+      const nextButton = this.shadowRoot?.getElementById("next-button") as HTMLButtonElement;
+      nextButton.classList.add("pop-out");
+    }
+  }
+
   render = (): void => {
     this.showDecryptingText();
     this.drawSignaLikeBorders();
+    this.showNextButton(0);
   }
 
 }

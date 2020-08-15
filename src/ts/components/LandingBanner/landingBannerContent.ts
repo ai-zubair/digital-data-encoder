@@ -11,6 +11,9 @@ const landingBannerContent = `
       <span class="landing-text-word" id="data">0010</span>
       <span class="landing-text-word" id="encoder">110100100</span> 
     </p>
+    <div class="next-button hide" id="next-button">
+      <span class="button-text">NEXT</span>
+    </div>
   </div>
 `;
 
