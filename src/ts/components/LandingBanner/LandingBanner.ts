@@ -1,33 +1,24 @@
+import { CustomElement } from '../CustomElement/CustomElement';
 import { landingBannerContent } from "./landingBannerContent";
-import { getRandomBit, Events } from "../utils";
-import { BreadCrumb } from "../BreadCrumb/constants";
+import { AppComponentName, AppEvents } from '../common/appConstants';
+import { getRandomBit } from '../common/utilityMethods';
 
-class LandingBanner extends HTMLElement{
+class LandingBanner extends CustomElement{
 
-  private domContent: string = landingBannerContent;
-  private textDecrypted: boolean = false;
-  public isHidden: boolean = false;
+  private bannerTextDecrypted: boolean = false;
 
   constructor(){
-    super();
-    this.bindDomContent();
+    super(landingBannerContent);
     this.bindListeners();
     
-  }
-
-  bindDomContent = ():void => {
-    const contentTemplate = document.createElement("template");
-    contentTemplate.innerHTML = this.domContent;
-    const shadowRoot = this.attachShadow({mode: "open"});
-    shadowRoot.appendChild(contentTemplate.content.cloneNode(true));
   }
 
   bindListeners = (): void => {
     const nextButton = this.shadowRoot?.querySelector(".button-text") as HTMLButtonElement;
     nextButton.addEventListener("click",()=>{
-      const activeChildChangeEvent = new CustomEvent(Events.ActiveComponentChange,{
+      const activeChildChangeEvent = new CustomEvent(AppEvents.ActiveComponentChange,{
         detail:{
-          targetComponentID: BreadCrumb.StreamLengthForm
+          targetComponentID: AppComponentName.StreamLengthForm
         }
       })
       this.parentElement?.dispatchEvent(activeChildChangeEvent);
@@ -40,8 +31,7 @@ class LandingBanner extends HTMLElement{
   }
 
   showDecryptingText = ():void =>{
-    const shadowRoot = this.shadowRoot as ShadowRoot;
-    const bannerWords = shadowRoot?.querySelectorAll(".landing-text-word");
+    const bannerWords = this.shadowRoot?.querySelectorAll(".landing-text-word");
     
     const decryptedWords = ["DIGITAL","DATA","ENCODER"];
     const stringToDecrpytTo = decryptedWords.join("");
@@ -55,7 +45,7 @@ class LandingBanner extends HTMLElement{
       framesElapsed++;
       const decryptCharacterInThisFrame = (framesElapsed % 4 === 0) ? true : false;
       if( decryptedLength >= totalStringLength ){
-        this.textDecrypted = true;
+        this.bannerTextDecrypted = true;
         cancelAnimationFrame(animationFrameID);
       }else{
         if(decryptCharacterInThisFrame){
@@ -64,7 +54,7 @@ class LandingBanner extends HTMLElement{
           decryptedLength++;
           const encryptedString = getRandomBit(totalStringLength - decryptedLength);
           const newTargetString = decryptedString + encryptedString;
-          bannerWords.forEach( (bannerWord, wordIndex) => {
+          bannerWords?.forEach( (bannerWord, wordIndex) => {
             const bannerWordStartIndex = stringToDecrpytTo.indexOf(decryptedWords[wordIndex]);
             const bannerWordEndIndex = bannerWordStartIndex + decryptedWords[wordIndex].length;
             bannerWord.innerHTML = newTargetString.substring(bannerWordStartIndex,bannerWordEndIndex);
@@ -87,7 +77,7 @@ class LandingBanner extends HTMLElement{
   }
 
   showNextButton = () => {
-    if(!this.textDecrypted) {
+    if(!this.bannerTextDecrypted) {
       requestAnimationFrame(this.showNextButton);
     }else{
       const nextButton = this.shadowRoot?.getElementById("next-button") as HTMLButtonElement;

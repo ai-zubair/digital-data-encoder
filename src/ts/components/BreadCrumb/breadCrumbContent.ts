@@ -1,12 +1,13 @@
 //@ts-ignore
 import breadCrumbStyles from 'bundle-text:./breadCrumb.scss';
-import { BreadCrumb, BreadCrumbItems } from './constants';
+import { AppComponentName } from "../common/appConstants";
+import { BreadCrumbItems } from './contentMap';
 
 const { 
-  [BreadCrumb.LandingBanner]: landingBanner,
-  [BreadCrumb.StreamLengthForm]: streamLengthForm,
-  [BreadCrumb.StreamBitForm]: streamBitForm,
-  [BreadCrumb.EncoderScreen]: encoderScreen,
+  [AppComponentName.LandingBanner]: landingBanner,
+  [AppComponentName.StreamLengthForm]: streamLengthForm,
+  [AppComponentName.StreamBitForm]: streamBitForm,
+  [AppComponentName.EncoderScreen]: encoderScreen,
 }= BreadCrumbItems;
 
 const breadCrumbContent = `

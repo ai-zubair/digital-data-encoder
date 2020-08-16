@@ -1,23 +1,15 @@
+import { CustomElement } from '../CustomElement/CustomElement';
 import { breadCrumbContent } from './breadCrumbContent';
+import { AppAttributes } from '../common/appConstants';
 
-class BreadCrumb extends HTMLElement{
-
-  private domContent: string = breadCrumbContent;
+class BreadCrumb extends CustomElement{
 
   constructor() {
-    super();
-    this.bindDomContent();
+    super(breadCrumbContent);
   }
 
   static get observedAttributes(): string[]{
-    return ["activecrumb"];
-  }
-
-  bindDomContent = () => {
-    const contentTemplate = document.createElement("template");
-    contentTemplate.innerHTML = this.domContent;
-    const shadowRoot = this.attachShadow({mode: "open"});
-    shadowRoot.appendChild(contentTemplate.content.cloneNode(true));
+    return [AppAttributes.ActiveCrumb];
   }
 
   attributeChangedCallback(attr: string, oldVal: string, newVal: string){

@@ -1,31 +1,22 @@
+import { CustomElement } from '../CustomElement/CustomElement';
 import { appWrapperContent } from "./appWrapperContent";
-import { Events } from '../utils';
-import { BreadCrumb } from '../BreadCrumb/constants';
+import { AppComponentName, AppEvents, AppAttributes } from '../common/appConstants';
 
-class AppWrapper extends HTMLElement{
+class AppWrapper extends CustomElement{
 
-  private domContent: string = appWrapperContent;
-  private activeComponentID: BreadCrumb = BreadCrumb.LandingBanner;
+  private activeComponentID: AppComponentName = AppComponentName.LandingBanner;
   private breadCrumb: Element | null = null;
   private componentMap: { [key: string]: Element } = {};
 
   constructor() {
-    super();
-    this.bindDomContent();
+    super(appWrapperContent);
     this.bindListeners();
   }
 
-  bindDomContent = (): void => {
-    const contentTemplate = document.createElement("template");
-    contentTemplate.innerHTML = this.domContent;
-    const shadowRoot = this.attachShadow({mode: "open"});
-    shadowRoot.appendChild(contentTemplate.content.cloneNode(true));
-  }
-
   bindListeners = (): void => {
-    this.addEventListener(Events.ActiveComponentChange,((event: CustomEvent)=>{
+    this.addEventListener(AppEvents.ActiveComponentChange,((event: CustomEvent)=>{
       const targetComponentID = event.detail.targetComponentID;
-      this.setActiveComponent(targetComponentID)
+      this.setActiveComponent(targetComponentID);
     }) as EventListener)
   }
 
@@ -37,28 +28,28 @@ class AppWrapper extends HTMLElement{
     const componentSlot = this.shadowRoot?.getElementById("component-slot") as HTMLSlotElement;
     const breadCrumbSlot = this.shadowRoot?.getElementById("bread-crumb-slot") as HTMLSlotElement;
     const appComponents = componentSlot.assignedElements({flatten: true});
-    const breadCrumb = breadCrumbSlot.assignedElements({flatten: true});
-    this.breadCrumb = breadCrumb[0];
+    this.breadCrumb = breadCrumbSlot.assignedElements({flatten: true})[0];
     let componentIndex = 0;
-    for (const componentID in BreadCrumb) {
+    
+    for (const componentID in AppComponentName) {
       const currentComponent = appComponents[componentIndex];
-      currentComponent.setAttribute("componentID",componentID);
+      currentComponent.setAttribute(AppAttributes.ComponentId,componentID);
       if(this.activeComponentID === componentID){
         currentComponent.setAttribute("active","true");
-        this.breadCrumb.setAttribute("activeCrumb",componentID);
+        this.breadCrumb.setAttribute(AppAttributes.ActiveCrumb,componentID);
       }
       this.componentMap[componentID] = currentComponent;
       componentIndex++;
     }
-    console.log(this.componentMap);
+
   }
 
-  setActiveComponent = (componentID: BreadCrumb) => {
+  setActiveComponent = (componentID: AppComponentName) => {
     const oldActiveComponent = this.componentMap[this.activeComponentID];
     oldActiveComponent.removeAttribute("active");
     const newActiveComponent = this.componentMap[componentID];
     newActiveComponent.setAttribute("active","true");
-    this?.breadCrumb?.setAttribute("activeCrumb", componentID);
+    this?.breadCrumb?.setAttribute(AppAttributes.ActiveCrumb, componentID);
     this.activeComponentID = componentID;
   }
 }

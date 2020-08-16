@@ -6,7 +6,3 @@ export const getRandomBit = ( stringLength: number ): string => {
   }
   return randomString;
 }
-
-export enum Events{
-  ActiveComponentChange = "active-component-change",
-}
