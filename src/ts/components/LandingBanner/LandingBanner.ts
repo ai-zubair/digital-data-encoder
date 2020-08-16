@@ -1,5 +1,5 @@
 import { landingBannerContent } from "./landingBannerContent";
-import { getRandomBit } from "../utils";
+import { getRandomBit, Events } from "../utils";
 
 class LandingBanner extends HTMLElement{
 
@@ -10,6 +10,8 @@ class LandingBanner extends HTMLElement{
   constructor(){
     super();
     this.bindDomContent();
+    this.bindListeners();
+    
   }
 
   bindDomContent = ():void => {
@@ -17,6 +19,19 @@ class LandingBanner extends HTMLElement{
     contentTemplate.innerHTML = this.domContent;
     const shadowRoot = this.attachShadow({mode: "open"});
     shadowRoot.appendChild(contentTemplate.content.cloneNode(true));
+  }
+
+  bindListeners = (): void => {
+    const nextButton = this.shadowRoot?.querySelector(".button-text") as HTMLButtonElement;
+    nextButton.addEventListener("click",()=>{
+      const activeChildChangeEvent = new CustomEvent(Events.ActiveChildChange,{
+        detail:{
+          sourceElement: this
+        }
+      })
+      this.parentElement?.dispatchEvent(activeChildChangeEvent);
+    })
+
   }
 
   connectedCallback():void{
@@ -71,7 +86,7 @@ class LandingBanner extends HTMLElement{
   }
 
   showNextButton = () => {
-    if(!this.textDecrypted){
+    if(!this.textDecrypted) {
       requestAnimationFrame(this.showNextButton);
     }else{
       const nextButton = this.shadowRoot?.getElementById("next-button") as HTMLButtonElement;

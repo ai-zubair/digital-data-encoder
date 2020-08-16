@@ -1,6 +1,6 @@
 @import "../../../scss/variables.scss";
 
-:host(:not([isHidden])){
+:host{
   display: block;
   .landing-wrapper{
     box-sizing: border-box;
@@ -99,12 +99,12 @@
         font-size: 20px;
         font-weight: 100;
         font-family: sans-serif;
-        box-shadow: none;
+        box-shadow: $box-shadow;
         border-radius: $border-radius;
         transition: all 0.2s ease;
         &:hover{
           cursor: pointer;
-          box-shadow: $box-shadow;
+          box-shadow: none;
           background: $background-reversed;
         }
       }
@@ -114,6 +114,6 @@
     }
   }
 }
-:host([isHidden]){
+:host([isHidden="true"]){
   display: none;
 }
