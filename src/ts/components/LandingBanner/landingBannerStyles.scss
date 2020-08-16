@@ -114,6 +114,6 @@
     }
   }
 }
-:host([isHidden="true"]){
+:host(:not([active])){
   display: none;
 }

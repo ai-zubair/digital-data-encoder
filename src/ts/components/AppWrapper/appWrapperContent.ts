@@ -6,8 +6,8 @@ const appWrapperContent = `
     ${appWrapperStyles}
   </style>
   <div id="app" class="app">
-    <slot name="bread-crumb"></slot>
-    <slot name="active-child-component"></slot>
+    <slot name="bread-crumb" id="bread-crumb-slot"></slot>
+    <slot name="app-component" id="component-slot"></slot>
   </div>
 `;
 

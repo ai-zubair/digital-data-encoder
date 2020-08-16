@@ -29,7 +29,7 @@ const breadCrumbContent = `
       <div class="crumb-item-title"> ${streamBitForm.title}</div>
       <div class="crumb-item-desc"> ${streamBitForm.description}</div>
     </div>
-    <div class="crumb-item" id=id=${encoderScreen.id} >
+    <div class="crumb-item" id=${encoderScreen.id} >
       <div class="crumb-item-index"> ${encoderScreen.index} </div>
       <div class="crumb-item-title"> ${encoderScreen.title}</div>
       <div class="crumb-item-desc"> ${encoderScreen.description}</div>

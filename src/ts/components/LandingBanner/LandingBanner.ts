@@ -1,5 +1,6 @@
 import { landingBannerContent } from "./landingBannerContent";
 import { getRandomBit, Events } from "../utils";
+import { BreadCrumb } from "../BreadCrumb/constants";
 
 class LandingBanner extends HTMLElement{
 
@@ -24,9 +25,9 @@ class LandingBanner extends HTMLElement{
   bindListeners = (): void => {
     const nextButton = this.shadowRoot?.querySelector(".button-text") as HTMLButtonElement;
     nextButton.addEventListener("click",()=>{
-      const activeChildChangeEvent = new CustomEvent(Events.ActiveChildChange,{
+      const activeChildChangeEvent = new CustomEvent(Events.ActiveComponentChange,{
         detail:{
-          sourceElement: this
+          targetComponentID: BreadCrumb.StreamLengthForm
         }
       })
       this.parentElement?.dispatchEvent(activeChildChangeEvent);

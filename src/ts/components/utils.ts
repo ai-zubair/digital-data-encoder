@@ -8,5 +8,5 @@ export const getRandomBit = ( stringLength: number ): string => {
 }
 
 export enum Events{
-  ActiveChildChange = "active-child-change",
+  ActiveComponentChange = "active-component-change",
 }
