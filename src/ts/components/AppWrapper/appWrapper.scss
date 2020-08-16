@@ -11,6 +11,11 @@
     align-items: center;
     justify-content: center;
   }
+  ::slotted([slot="bread-crumb"]){
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
 :host([isHidden="true"]){
   display: none;
