@@ -14,7 +14,7 @@ const breadCrumbContent = `
     ${breadCrumbStyles}
   </style>
   <div class="crumb-wrapper">
-    <div class="crumb-item" id=${landingBanner.id} active>
+    <div class="crumb-item" id=${landingBanner.id}>
       <div class="crumb-item-index"> ${landingBanner.index} </div>
       <div class="crumb-item-title"> ${landingBanner.title}</div>
       <div class="crumb-item-desc"> ${landingBanner.description}</div>
