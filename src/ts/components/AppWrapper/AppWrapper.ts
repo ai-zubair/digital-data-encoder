@@ -1,6 +1,7 @@
 import { CustomElement } from '../CustomElement/CustomElement';
 import { appWrapperContent } from "./appWrapperContent";
 import { AppComponentName, AppEvents, AppAttributes } from '../common/appConstants';
+import { BreadCrumb } from '../BreadCrumb/BreadCrumb';
 
 class AppWrapper extends CustomElement{
 
@@ -17,6 +18,10 @@ class AppWrapper extends CustomElement{
     this.addEventListener(AppEvents.ActiveComponentChange,((event: CustomEvent)=>{
       const targetComponentID = event.detail.targetComponentID;
       this.setActiveComponent(targetComponentID);
+    }) as EventListener);
+    this.addEventListener(AppEvents.LandingBannerShown,((event)=>{
+      this?.breadCrumb?.removeAttribute("isHidden");
+      this?.breadCrumb?.setAttribute(AppAttributes.ActiveCrumb,this.activeComponentID);
     }) as EventListener)
   }
 
@@ -36,7 +41,6 @@ class AppWrapper extends CustomElement{
       currentComponent.setAttribute(AppAttributes.ComponentId,componentID);
       if(this.activeComponentID === componentID){
         currentComponent.setAttribute("active","true");
-        this.breadCrumb.setAttribute(AppAttributes.ActiveCrumb,componentID);
       }
       this.componentMap[componentID] = currentComponent;
       componentIndex++;

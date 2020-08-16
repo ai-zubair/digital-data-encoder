@@ -82,6 +82,8 @@ class LandingBanner extends CustomElement{
     }else{
       const nextButton = this.shadowRoot?.getElementById("next-button") as HTMLButtonElement;
       nextButton.classList.add("pop-out");
+      const landingBannerShownEvent = new CustomEvent(AppEvents.LandingBannerShown);
+      this.parentElement?.dispatchEvent(landingBannerShownEvent);
     }
   }
 

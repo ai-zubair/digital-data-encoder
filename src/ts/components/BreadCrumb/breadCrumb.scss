@@ -3,6 +3,9 @@
 :host{
   width: 96%;
   margin: 2%;
+  transition: transform 0.4s ease 0.2s;
+  transform: scale(1,1);
+  transform-origin: left;
   .crumb-wrapper{
     display: flex;
     box-sizing: border-box;
@@ -55,5 +58,5 @@
 }
 
 :host([isHidden="true"]){
-  display: none;
+  transform: scale(0,1)
 }

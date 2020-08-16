@@ -1,5 +1,6 @@
 export enum AppEvents{
   ActiveComponentChange = "active-component-change",
+  LandingBannerShown = "landing-banner-shown"
 }
 
 export enum AppAttributes{
