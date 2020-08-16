@@ -14,7 +14,34 @@
       margin-right: 20px;
       position: relative;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.2);;
+      color: rgba(255, 255, 255, 0.2);
+      display: grid;
+      grid-template-columns: 1fr 7fr;
+      grid-template-areas: "crumb-item-index crumb-item-title"
+                           "crumb-item-index crumb-item-desc";
+
+      .crumb-item-index,.crumb-item-title,.crumb-item-desc{
+        align-self: center;
+        // justify-self: center;
+      }
+      .crumb-item-index{
+        grid-area: crumb-item-index;
+        margin-right: 5px;
+        font-size: 52px;
+        align-self: center;
+        justify-self: center;
+        font-weight: 100;
+      }
+      .crumb-item-title{
+        grid-area: crumb-item-title;
+        font-weight: 400;
+        font-size: $title-font-size;
+      }
+      .crumb-item-desc{
+        grid-area: crumb-item-desc;
+        font-weight: 100;
+        font-size: $text-font-size;
+      }
       &[active]{
         color: $text-color;
         border: none;
