@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Visulally illustrative digital data encoder utlizing various line encoding schemes.",
   "scripts": {
-    "start": "parcel ./index.html",
+    "start": "parcel ./index.html --no-cache",
     "predeploy": "rm -rf ./build && parcel build index.html --dist-dir ./build --public-url /digital-data-encoder/",
     "deploy": "gh-pages -d ./build"
   },

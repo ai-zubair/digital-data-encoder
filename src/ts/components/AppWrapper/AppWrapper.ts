@@ -1,7 +1,6 @@
 import { CustomElement } from '../CustomElement/CustomElement';
 import { appWrapperContent } from "./appWrapperContent";
 import { AppComponentName, AppEvents, AppAttributes } from '../common/appConstants';
-import { BreadCrumb } from '../BreadCrumb/BreadCrumb';
 
 class AppWrapper extends CustomElement{
 

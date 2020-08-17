@@ -2,9 +2,13 @@ $background: linear-gradient(315deg, #194d5c, #15414d);
 $background-reversed: linear-gradient(145deg, #194d5c, #15414d);
 $box-shadow:  5px 5px 10px #10333d, 
              -5px -5px 10px #1e5d6f;
+$box-shadow-inset: inset 20px 20px 60px #143d49, 
+            inset -20px -20px 60px #1a5363;
 $padding-max: 20px;
 $padding-med: 10px;
 $padding-min: 5px;
+$margin: 2%;
+$margin-y: 25px;
 $border-radius: 5px;
 $border-size: 2px;
 $text-color: white;
@@ -12,3 +16,27 @@ $title-font-size: 20px;
 $text-font-size: 16px;
 $header-font-size: 40px;
 $border-color: white;
+$main-font: 'Roboto', sans-serif;
+
+@mixin bewel {
+  background: $background;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+}
+
+@mixin button-style {
+  @include bewel;
+  padding: $padding-med;
+  font-size: $title-font-size;
+  color: $text-color;
+  font-family: 'Roboto';
+  font-weight: 100;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+  &:hover{
+    cursor: pointer;
+    box-shadow: none;
+    background: $background-reversed;
+  }
+}

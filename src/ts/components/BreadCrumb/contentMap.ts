@@ -5,13 +5,13 @@ export const BreadCrumbItems = {
     id: AppComponentName.LandingBanner,
     index: "1",
     title: "Welcome",
-    description: "An interactive digital data encoder."
+    description: "An illustrative digital data encoder."
   },
   [AppComponentName.StreamLengthForm]:{
     id: AppComponentName.StreamLengthForm,
     index: "2",
     title: "Length",
-    description: "Enter the number of bits in the stream."
+    description: "Enter the length of data stream."
   },
   [AppComponentName.StreamBitForm]:{
     id: AppComponentName.StreamBitForm,
