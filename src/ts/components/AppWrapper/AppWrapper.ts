@@ -15,7 +15,7 @@ class AppWrapper extends CustomElement{
 
   bindListeners = (): void => {
     this.addEventListener(AppEvents.ActiveComponentChange,((event: CustomEvent)=>{
-      const targetComponentID = event.detail.targetComponentID;
+      const targetComponentID = event.detail[AppAttributes.ComponentId];
       this.setActiveComponent(targetComponentID);
     }) as EventListener);
     this.addEventListener(AppEvents.LandingBannerShown,((event)=>{

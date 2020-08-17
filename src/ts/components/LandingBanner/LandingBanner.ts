@@ -1,6 +1,6 @@
 import { CustomElement } from '../CustomElement/CustomElement';
 import { landingBannerContent } from "./landingBannerContent";
-import { AppComponentName, AppEvents } from '../common/appConstants';
+import { AppComponentName, AppEvents, AppAttributes } from '../common/appConstants';
 import { getRandomBit } from '../common/utilityMethods';
 
 class LandingBanner extends CustomElement{
@@ -18,7 +18,7 @@ class LandingBanner extends CustomElement{
     nextButton.addEventListener("click",()=>{
       const activeChildChangeEvent = new CustomEvent(AppEvents.ActiveComponentChange,{
         detail:{
-          targetComponentID: AppComponentName.StreamLengthForm
+          [AppAttributes.ComponentId]: AppComponentName.StreamLengthForm
         }
       })
       this.parentElement?.dispatchEvent(activeChildChangeEvent);
