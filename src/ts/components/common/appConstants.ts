@@ -2,13 +2,15 @@ export enum AppEvents{
   ActiveComponentChange = "active-component-change",
   LandingBannerShown = "landing-banner-shown",
   StreamLengthChange = "stream-length-change",
-  ErrorNotification = "error-notification"
+  ErrorNotification = "error-notification",
+  NotifcationClose = "notification-close"
 }
 
 export enum AppAttributes{
-  ComponentId = "componentid",
-  ActiveCrumb = "activecrumb",
-  ErrorMessage = "errormsg"
+  ComponentId = "component-id",
+  ActiveCrumb = "active-crumb",
+  ErrorMessage = "error-msg",
+  DataStreamLength = "data-stream-length"
 }
 
 export enum AppComponentName{

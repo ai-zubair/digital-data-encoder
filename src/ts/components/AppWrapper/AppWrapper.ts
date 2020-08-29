@@ -11,22 +11,42 @@ class AppWrapper extends CustomElement{
 
   constructor() {
     super(appWrapperContent);
+    this.bindAppEventListeners();
     this.bindListeners();
   }
 
-  bindListeners = (): void => {
+  bindAppEventListeners = (): void => {
     this.addEventListener(AppEvents.ActiveComponentChange,((event: CustomEvent)=>{
       const targetComponentID = event.detail[AppAttributes.ComponentId];
       this.setActiveComponent(targetComponentID);
     }) as EventListener);
+
     this.addEventListener(AppEvents.LandingBannerShown,((event)=>{
       this?.breadCrumb?.removeAttribute("isHidden");
       this?.breadCrumb?.setAttribute(AppAttributes.ActiveCrumb,this.activeComponentID);
     }) as EventListener);
+
     this.addEventListener(AppEvents.ErrorNotification,((event: CustomEvent)=>{
       const errorMessage = event.detail[AppAttributes.ErrorMessage];
       this.showNotification(errorMessage);
+    }) as EventListener);
+
+    this.addEventListener(AppEvents.StreamLengthChange,((event: CustomEvent)=>{
+      const dataStreamLength = event.detail[AppAttributes.DataStreamLength];
+      const streamBitForm = this.componentMap[AppComponentName.StreamBitForm];
+      streamBitForm.setAttribute(AppAttributes.DataStreamLength,dataStreamLength);
+      //set the stream length on the canvas
     }) as EventListener)
+  }
+
+  bindListeners = () => {
+    const notificationCloseButton = this.shadowRoot?.querySelector(".notification-timer") as HTMLSpanElement;
+    const notification = this.shadowRoot?.getElementById("notification") as HTMLDivElement;
+    const progressBar = notification.querySelector(".progress-bar") as HTMLSpanElement;
+    notificationCloseButton.addEventListener("click",(event)=>{
+      progressBar.classList.remove("animate");
+      notification.classList.remove("show");
+    })
   }
 
   connectedCallback(): void {
@@ -68,13 +88,13 @@ class AppWrapper extends CustomElement{
     notificationTextContainer.innerText = notificationText;
     let offset = 0;
     const notificationPersistor = ( timestamp: DOMHighResTimeStamp ): void =>{
-      console.log(timestamp,offset, timestamp-offset);
+      
       if(offset === 0){
         notification.classList.add("show");
         progressBar.classList.add("animate");
         offset = timestamp;
       }
-      if(timestamp-offset >= 3000){
+      if(timestamp-offset >= 2000){
         progressBar.classList.remove("animate");
         notification.classList.remove("show");
       }else{
