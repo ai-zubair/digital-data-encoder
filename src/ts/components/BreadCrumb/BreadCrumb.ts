@@ -12,7 +12,7 @@ class BreadCrumb extends CustomElement{
     return [AppAttributes.ActiveCrumb];
   }
 
-  attributeChangedCallback(attr: string, oldVal: string, newVal: string){
+  attributeChangedCallback(attr: string, oldVal: string, newVal: string): void{
     if(oldVal!==newVal){
       const oldCrumb = this.shadowRoot?.getElementById(oldVal);
       const newCrumb = this.shadowRoot?.getElementById(newVal);

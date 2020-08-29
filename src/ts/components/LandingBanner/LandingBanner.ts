@@ -76,7 +76,7 @@ class LandingBanner extends CustomElement{
     })
   }
 
-  showNextButton = () => {
+  showNextButton = (): void => {
     if(!this.bannerTextDecrypted) {
       requestAnimationFrame(this.showNextButton);
     }else{
