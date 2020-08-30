@@ -60,6 +60,7 @@ class FancyInputList extends CustomElement{
   handleInputValueChange = (event: ShadowDomEvent ): void=>{
     const currentInput = event.path[0] as HTMLInputElement;
     const inputValue = currentInput.value;
+    console.log("firing!",inputValue);
     if(this.isValidInputValue(inputValue)){
       this.upadteInputListValue(currentInput, inputValue);
       const nextInput = currentInput.nextElementSibling;
@@ -67,7 +68,7 @@ class FancyInputList extends CustomElement{
         nextInput.removeAttribute(FancyInputListAttributes.DISABLED);
         (nextInput as HTMLInputElement).focus();
       }
-    }else{
+    }else if(inputValue.length !== 0){
       currentInput.value = "";
       const StreamBitErrorEvent = new CustomEvent(AppEvents.ErrorNotification,{
         bubbles: true,
