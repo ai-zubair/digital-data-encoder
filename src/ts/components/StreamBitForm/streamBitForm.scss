@@ -1,0 +1,35 @@
+@import '../../../styles/variables.scss';
+
+:host{
+  display: block;
+  .form-wrapper{
+    @include bewel;
+    padding: $padding-max;
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    .form-header{
+      color: $text-color;
+      font-weight: 300;
+      margin: 0px;
+      margin-bottom: $margin-y;
+      font-size: $title-font-size;
+    }
+    .nav-button-wrapper{
+      display: flex;
+      justify-content: center;
+      .action-button{
+        @include button-style;
+        flex-basis: 50%;
+        max-width: 150px;
+      }
+      .prev-button{
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+:host(:not([active])){
+  display: none;
+}

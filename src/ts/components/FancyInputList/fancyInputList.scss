@@ -4,7 +4,10 @@
   display: block;
   .inputs-wrapper{
     display: flex;
-    margin-bottom: $margin-y;
+    max-width: 950px;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+    padding: 10px;
     .list-inputs{
       @include bewel;
       border: none;
@@ -34,6 +37,13 @@
         box-shadow: none;
         border: 1px solid rgba(255, 255, 255, 0.1);
       }
+    }
+    &::after{
+      display: block;
+      flex: 0 0 10px;
+      height: 46px;
+      content: "";
+      width: 10px;
     }
   }
 }

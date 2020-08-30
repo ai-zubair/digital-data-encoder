@@ -10,7 +10,8 @@ export enum AppAttributes{
   ComponentId = "component-id",
   ActiveCrumb = "active-crumb",
   ErrorMessage = "error-msg",
-  DataStreamLength = "data-stream-length"
+  DataStreamLength = "data-stream-length",
+  InputListLength = "input-list-length"
 }
 
 export enum AppComponentName{

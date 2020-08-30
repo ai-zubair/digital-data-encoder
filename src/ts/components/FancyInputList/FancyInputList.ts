@@ -1,6 +1,6 @@
 import { CustomElement } from '../CustomElement/CustomElement';
 import { fancyInputListContent } from './fancyInputListContent';
-import { AppAttributes } from '../common/appConstants';
+import { AppAttributes, AppEvents } from '../common/appConstants';
 
 export enum FancyInputListAttributes{
   LIST_LENGTH = "list-length",
@@ -32,7 +32,7 @@ class FancyInputList extends CustomElement{
   }
 
   static get observedAttributes(){
-    return [AppAttributes.InputListLength];
+    return [FancyInputListAttributes.LIST_LENGTH];
   }
 
   addInputsToTheList = ():void => {
@@ -69,6 +69,14 @@ class FancyInputList extends CustomElement{
       }
     }else{
       currentInput.value = "";
+      const StreamBitErrorEvent = new CustomEvent(AppEvents.ErrorNotification,{
+        bubbles: true,
+        composed: true,
+        detail:{
+          [AppAttributes.ErrorMessage]: "Stream Bit Can Only Be Either 0 or 1"
+        }
+      })
+      this.parentElement?.dispatchEvent(StreamBitErrorEvent);
     }
   }
 
@@ -101,7 +109,7 @@ class FancyInputList extends CustomElement{
   }
 
   attributeChangedCallback(attr: string, oldVal: string, newVal: string): void{
-    if(oldVal !== null){
+    if(oldVal !== null && oldVal !== newVal){
       this.addInputsToTheList();
     }
   }

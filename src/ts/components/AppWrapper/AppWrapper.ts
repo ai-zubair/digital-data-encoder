@@ -4,7 +4,7 @@ import { AppComponentName, AppEvents, AppAttributes } from '../common/appConstan
 
 class AppWrapper extends CustomElement{
 
-  private activeComponentID: AppComponentName = AppComponentName.LandingBanner;
+  private activeComponentID: AppComponentName = AppComponentName.StreamLengthForm;
   private breadCrumb: Element | null = null;
   private componentMap: { [key: string]: Element } = {};
   private appState : { [key: string]: string } = {};
