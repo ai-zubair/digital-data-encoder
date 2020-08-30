@@ -1,0 +1,39 @@
+@import '../../../styles/variables.scss';
+
+:host{
+  display: block;
+  .inputs-wrapper{
+    display: flex;
+    margin-bottom: $margin-y;
+    .list-inputs{
+      @include bewel;
+      border: none;
+      outline: none;
+      padding: $padding-med;
+      color: $text-color;
+      font-family: $main-font;
+      font-size: $title-font-size;
+      font-weight: 100;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+      &[type=number] {
+          -moz-appearance:textfield;
+      }
+      text-align: center;
+      width: 50px;
+      height: 46px;
+      box-sizing: border-box;
+      margin-right: 10px;
+      &:nth-last-child(1){
+        margin-right: 0px ;
+      }
+      &[disabled]{
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
