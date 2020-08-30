@@ -27,6 +27,7 @@ class FancyInputList extends CustomElement{
 
   constructor() {
     super(fancyInputListContent);
+    this.setAttribute(FancyInputListAttributes.LIST_VALUES, JSON.stringify(this.inputListValues));
     this.addInputsToTheList();
     this.bindChangeListeners();
   }
@@ -62,7 +63,7 @@ class FancyInputList extends CustomElement{
     const inputValue = currentInput.value;
     console.log("firing!",inputValue);
     if(this.isValidInputValue(inputValue)){
-      this.upadteInputListValue(currentInput, inputValue);
+      this.updateInputListValue(currentInput, inputValue);
       const nextInput = currentInput.nextElementSibling;
       if(nextInput !== null){
         nextInput.removeAttribute(FancyInputListAttributes.DISABLED);
@@ -78,6 +79,8 @@ class FancyInputList extends CustomElement{
         }
       })
       this.parentElement?.dispatchEvent(StreamBitErrorEvent);
+    }else{
+      this.updateInputListValue(currentInput, null);
     }
   }
 
@@ -86,7 +89,7 @@ class FancyInputList extends CustomElement{
     const currentInput = event.path[0] as HTMLInputElement;
     const inputValue = currentInput.value;
     if(pressedKey === KeyCodes.BACKSPACE && inputValue.length === 0){
-      this.upadteInputListValue(currentInput, null);
+      this.updateInputListValue(currentInput, null);
       const prevInput = currentInput.previousElementSibling;
       if(prevInput !== null){
         currentInput.setAttribute(FancyInputListAttributes.DISABLED,"true");
@@ -95,7 +98,7 @@ class FancyInputList extends CustomElement{
     }
   }
 
-  upadteInputListValue = (listInput: HTMLInputElement, inputValue: string | null):void => {
+  updateInputListValue = (listInput: HTMLInputElement, inputValue: string | null):void => {
     const currentInputIndex = parseInt(listInput.getAttribute(FancyInputListAttributes.INPUT_INDEX) as string, 10);
     this.inputListValues[currentInputIndex] = inputValue;
     this.setAttribute(FancyInputListAttributes.LIST_VALUES,JSON.stringify(this.inputListValues));
