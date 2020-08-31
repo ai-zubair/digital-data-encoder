@@ -4,6 +4,10 @@ import { AppAttributes, AppEvents, AppComponentName } from '../common/appConstan
 import { FancyInputListAttributes } from '../FancyInputList/FancyInputList';
 class StreamBitForm extends CustomElement{
 
+  static get observedAttributes():string []{
+    return [AppAttributes.DataStreamLength];
+  }
+
   constructor() {
     super(streamBitFormContent);
     this.bindListeners();
@@ -18,7 +22,22 @@ class StreamBitForm extends CustomElement{
   }
 
   handleNextButtonClick: EventListener = (event) => {
-    
+    const inputList = this.shadowRoot?.querySelector("#input-list");
+    const dataStreamBits: string[] = JSON.parse(inputList?.getAttribute(FancyInputListAttributes.LIST_VALUES) as string) ;
+    const inputListLength = parseInt(inputList?.getAttribute(FancyInputListAttributes.LIST_LENGTH) as string);
+    const dataStreamLength = dataStreamBits.length;
+    if(inputListLength !== dataStreamLength){
+      this.notifyInvalidBitStream();
+      return;
+    }
+    for (let bitIndex = 0; bitIndex < inputListLength; bitIndex++) {
+      if(dataStreamBits[bitIndex] === null){
+        this.notifyInvalidBitStream();
+        return;
+      }
+    }
+    this.notifyValidBitStream(dataStreamBits);
+
   }
 
   handlePrevButtonClick: EventListener = (event) => {
@@ -31,8 +50,22 @@ class StreamBitForm extends CustomElement{
     this.parentElement?.dispatchEvent(activeComponentChangeEvent);
   }
 
-  static get observedAttributes():string []{
-    return [AppAttributes.DataStreamLength];
+  notifyInvalidBitStream = (): void =>{
+    const invalidBitStreamEvent = new CustomEvent(AppEvents.Notification,{
+      detail:{
+        [AppAttributes.NotificationText]: "One or more data stream bits are missing!"
+      }
+    })
+    this.parentElement?.dispatchEvent(invalidBitStreamEvent);
+  }
+
+  notifyValidBitStream = (dataStreamBits: string[]): void => {
+    const validBitStreamEvent = new CustomEvent(AppEvents.DataStreamChange,{
+      detail:{
+        [AppAttributes.DataBitStream]: dataStreamBits
+      }
+    })
+    this.parentElement?.dispatchEvent(validBitStreamEvent);
   }
 
   connectedCallback(){

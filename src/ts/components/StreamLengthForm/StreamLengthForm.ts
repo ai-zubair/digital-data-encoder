@@ -29,9 +29,9 @@ class StreamLengthForm extends CustomElement{
         })
         this.parentElement?.dispatchEvent(activeChildChangeEvent);
       }else{
-        const streamLengthErrorEvent = new CustomEvent(AppEvents.ErrorNotification,{
+        const streamLengthErrorEvent = new CustomEvent(AppEvents.Notification,{
           detail:{
-            [AppAttributes.ErrorMessage]: AppValidationMessages.StreamLengthError
+            [AppAttributes.NotificationText]: AppValidationMessages.StreamLengthError
           }
         });
         this.parentElement?.dispatchEvent(streamLengthErrorEvent);

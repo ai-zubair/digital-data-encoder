@@ -4,10 +4,9 @@ import { AppComponentName, AppEvents, AppAttributes } from '../common/appConstan
 
 class AppWrapper extends CustomElement{
 
-  private activeComponentID: AppComponentName = AppComponentName.StreamLengthForm;
+  private activeComponentID: AppComponentName = AppComponentName.LandingBanner;
   private breadCrumb: Element | null = null;
   private componentMap: { [key: string]: Element } = {};
-  private appState : { [key: string]: string } = {};
 
   constructor() {
     super(appWrapperContent);
@@ -26,16 +25,24 @@ class AppWrapper extends CustomElement{
       this?.breadCrumb?.setAttribute(AppAttributes.ActiveCrumb,this.activeComponentID);
     }) as EventListener);
 
-    this.addEventListener(AppEvents.ErrorNotification,((event: CustomEvent)=>{
-      const errorMessage = event.detail[AppAttributes.ErrorMessage];
+    this.addEventListener(AppEvents.Notification,((event: CustomEvent)=>{
+      const errorMessage = event.detail[AppAttributes.NotificationText];
       this.showNotification(errorMessage);
     }) as EventListener);
 
     this.addEventListener(AppEvents.StreamLengthChange,((event: CustomEvent)=>{
       const dataStreamLength = event.detail[AppAttributes.DataStreamLength];
       const streamBitForm = this.componentMap[AppComponentName.StreamBitForm];
+      const encoderScreen = this.componentMap[AppComponentName.EncoderScreen];
       streamBitForm.setAttribute(AppAttributes.DataStreamLength,dataStreamLength);
-      //set the stream length on the canvas
+      encoderScreen.setAttribute(AppAttributes.DataStreamLength,dataStreamLength);
+    }) as EventListener)
+
+    this.addEventListener(AppEvents.DataStreamChange,((event: CustomEvent)=>{
+      const dataStream: string[] = event.detail[AppAttributes.DataBitStream];
+      const encoderScreen = this.componentMap[AppComponentName.EncoderScreen];
+      encoderScreen.setAttribute(AppAttributes.DataBitStream,JSON.stringify(dataStream));
+      this.setActiveComponent(AppComponentName.EncoderScreen);
     }) as EventListener)
   }
 

@@ -71,11 +71,11 @@ class FancyInputList extends CustomElement{
       }
     }else if(inputValue.length !== 0){
       currentInput.value = "";
-      const StreamBitErrorEvent = new CustomEvent(AppEvents.ErrorNotification,{
+      const StreamBitErrorEvent = new CustomEvent(AppEvents.Notification,{
         bubbles: true,
         composed: true,
         detail:{
-          [AppAttributes.ErrorMessage]: "Stream Bit Can Only Be Either 0 or 1"
+          [AppAttributes.NotificationText]: "Stream Bit Can Only Be Either 0 or 1"
         }
       })
       this.parentElement?.dispatchEvent(StreamBitErrorEvent);
