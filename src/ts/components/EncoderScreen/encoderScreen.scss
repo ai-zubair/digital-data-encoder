@@ -40,6 +40,8 @@
     }
     .encoding-panels{
       @include bewel;
+      padding: $padding-med;
+      box-sizing: border-box;
     }
   }
   .navigation-bar-container{

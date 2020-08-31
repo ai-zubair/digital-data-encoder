@@ -11,35 +11,47 @@ const encoderScreenContent = `
         <button tabId="nrzl-encoding" class="tab-titles">NRZ-L</button>
       </div>
       <div slot="panel" class="encoding-panels">
-        This is the encoding panel NRZ-L
+        <div class="encoding-conatiners">
+          <div class="encoding-info"></div>
+          <canvas class="encoding-canvas"></canvas>
+          <div class="encoding-logic"></div>
+        </div>
       </div>
 
       <div slot="tab" tabId="rz-encoding" class="tab-title-containers">
         <button tabId="rz-encoding" class="tab-titles">RZ</button>
       </div>
       <div slot="panel" class="encoding-panels">
-        This is the encoding panel RZ
+        <div class="encoding-info"></div>
+        <canvas class="encoding-canvas"></canvas>
+        <div class="encoding-logic"></div>
       </div>
 
       <div slot="tab" tabId="manchester-encoding" class="tab-title-containers">
         <button tabId="manchester-encoding" class="tab-titles">MANCHESTER</button>
       </div>
       <div slot="panel" class="encoding-panels">
-        This is the encoding panel MANC
+        <div class="encoding-info"></div>
+        <canvas class="encoding-canvas"></canvas>
+        <div class="encoding-logic"></div>
       </div>
 
       <div slot="tab" tabId="diff-manchester" class="tab-title-containers">
         <button tabId="diff-manchester" class="tab-titles">D-MANCHESTER</button>
       </div>
       <div slot="panel" class="encoding-panels">
-        This is the encoding panel D_MANC
+        <div class="encoding-info"></div>
+        <canvas class="encoding-canvas"></canvas>
+        <div class="encoding-logic"></div>
       </div>
 
       <div slot="tab" tabId="ami-encoding" class="tab-title-containers">
         <button tabId="ami-encoding" class="tab-titles">AMI</button>
       </div>
       <div slot="panel" class="encoding-panels">
-        This is the encoding panel AMI
+        <div class="encoding-info"></div>
+        <canvas class="encoding-canvas"></canvas>
+        <div class="encoding-logic"></div>
       </div>
     </fancy-tabs>
   </div>
