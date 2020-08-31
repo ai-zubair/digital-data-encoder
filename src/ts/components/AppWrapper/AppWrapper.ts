@@ -36,6 +36,7 @@ class AppWrapper extends CustomElement{
       const encoderScreen = this.componentMap[AppComponentName.EncoderScreen];
       streamBitForm.setAttribute(AppAttributes.DataStreamLength,dataStreamLength);
       encoderScreen.setAttribute(AppAttributes.DataStreamLength,dataStreamLength);
+      this.setActiveComponent(AppComponentName.StreamBitForm);
     }) as EventListener)
 
     this.addEventListener(AppEvents.DataStreamChange,((event: CustomEvent)=>{

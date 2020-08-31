@@ -1,6 +1,6 @@
 import { CustomElement } from '../CustomElement/CustomElement';
 import { streamLengthFormContent } from './streamLengthFormContent';
-import { AppEvents, AppComponentName, AppAttributes, AppValidationMessages } from '../common/appConstants';
+import { AppEvents, AppAttributes, AppValidationMessages } from '../common/appConstants';
 class StreamLengthForm extends CustomElement{
 
   private streamLength: number = 0;
@@ -12,36 +12,40 @@ class StreamLengthForm extends CustomElement{
 
   bindEventListeners = (): void => {
     const nextButton = this.shadowRoot?.getElementById("next-button");
-    nextButton?.addEventListener("click",()=>{
-      if(this.isStreamLengthValid()){
-        const streamLengthInput = this.shadowRoot?.querySelector("#length-input") as HTMLInputElement;
-        this.setAttribute(AppAttributes.DataStreamLength, streamLengthInput.value);
-        const streamLengthChangeEvent = new CustomEvent(AppEvents.StreamLengthChange,{
-          detail: {
-            [AppAttributes.DataStreamLength] : streamLengthInput.value
-          }
-        })
-        this.parentElement?.dispatchEvent(streamLengthChangeEvent);
-        const activeChildChangeEvent = new CustomEvent(AppEvents.ActiveComponentChange,{
-          detail:{
-            [AppAttributes.ComponentId]: AppComponentName.StreamBitForm
-          }
-        })
-        this.parentElement?.dispatchEvent(activeChildChangeEvent);
-      }else{
-        const streamLengthErrorEvent = new CustomEvent(AppEvents.Notification,{
-          detail:{
-            [AppAttributes.NotificationText]: AppValidationMessages.StreamLengthError
-          }
-        });
-        this.parentElement?.dispatchEvent(streamLengthErrorEvent);
-      }
-    })
+    nextButton?.addEventListener("click",this.handleNextButtonClick);
   }
 
-  isStreamLengthValid = (): boolean => {
-    const lengthInput = this.shadowRoot?.getElementById("length-input") as HTMLInputElement;
-    return parseInt(lengthInput.value) >= 2 ? true : false;
+  handleNextButtonClick: EventListener = (event) =>{
+    const streamLengthInput = this.shadowRoot?.querySelector("#length-input") as HTMLInputElement;
+    const streamLength = parseInt(streamLengthInput.value,10);
+    if(this.isStreamLengthValid(streamLength)){
+      this.streamLength = streamLength;
+      this.notifyValidStreamLength(streamLength);
+    }else{
+      this.notfiyInvalidStreamLength();
+    }
+  }
+
+  notifyValidStreamLength = ( value: number) => {
+    const streamLengthChangeEvent = new CustomEvent(AppEvents.StreamLengthChange,{
+      detail: {
+        [AppAttributes.DataStreamLength] : value
+      }
+    })
+    this.parentElement?.dispatchEvent(streamLengthChangeEvent);
+  }
+
+  notfiyInvalidStreamLength = () => {
+    const streamLengthErrorEvent = new CustomEvent(AppEvents.Notification,{
+      detail:{
+        [AppAttributes.NotificationText]: AppValidationMessages.StreamLengthError
+      }
+    });
+    this.parentElement?.dispatchEvent(streamLengthErrorEvent);
+  }
+
+  isStreamLengthValid = (streamLength: number): boolean => {
+    return streamLength >= 2 ? true : false;
   }
 }
 
