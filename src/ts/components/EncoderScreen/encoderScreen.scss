@@ -33,8 +33,32 @@
           border: 1px solid #c7c7c7;
           &:hover{
             background: transparent;
+            opacity: 0.4;
           }
         }
+      }
+    }
+    .encoding-panels{
+      @include bewel;
+    }
+  }
+  .navigation-bar-container{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 96%;
+    margin: 0% 2% 2% 2%;
+    .navigation-bar{
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+      .back-button{
+        @include button-style;
+      }
+      .profile-link{
+        @include button-style;
+        text-decoration: none;
       }
     }
   }

@@ -17,7 +17,7 @@
   flex-basis: 15%;
   overflow: scroll;
   scrollbar-width: none;
-
+  padding: $padding-med;
 }
 .tab-container::-webkit-scrollbar{
   display: none;
@@ -46,7 +46,7 @@
 .panel-container {
   flex-basis: 90%;
   background: $background;
-  padding: 10px;
+  padding: $padding-med $padding-max $padding-max $padding-max;
   overflow: auto;
 }
 ::slotted([slot="panel"][active]){
