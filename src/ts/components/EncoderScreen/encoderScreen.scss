@@ -1,0 +1,45 @@
+@import "../../../styles/variables.scss";
+
+:host{
+  display: block;
+  width: 96%;
+  height: 500px;
+  margin: 2%;
+  .encoder-screen-wrapper{
+    height: 100%;
+    .tab-title-containers{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .tab-titles{
+        width: 80%;
+        @include button-style;
+      }
+      &[active]{
+        .tab-titles{
+          &:hover{
+            cursor: auto;
+            box-shadow: $box-shadow;
+            background: $background;
+          }
+        }
+      }
+      &:not([active]){
+        .tab-titles{
+          transition: none;
+          box-shadow: none;
+          opacity: 0.2;
+          background: transparent;
+          border: 1px solid #c7c7c7;
+          &:hover{
+            background: transparent;
+          }
+        }
+      }
+    }
+  }
+}
+
+:host(:not([active])){
+  display: none;
+}

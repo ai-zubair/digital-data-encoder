@@ -1,18 +1,17 @@
+import { CustomElement } from '../CustomElement/CustomElement';
 import { FancyTabContent } from "./fancyTabsContent";
 import { TabMap } from "./types";
 
-class FancyTabs extends HTMLElement{
+class FancyTabs extends CustomElement{
 
   public tabMap: TabMap = {};
-  public domContent: string = FancyTabContent;
   public activeTabId: string = "";
   public defaultActiveTabId: string = "";
   public tabTitle: HTMLElement[] = [];
   public tabPanel: HTMLElement[] = [];
 
   constructor(){
-    super();
-    this.bindDomContent();
+    super(FancyTabContent);
   }
 
   connectedCallback(): void{
@@ -28,17 +27,6 @@ class FancyTabs extends HTMLElement{
     this.tabTitle.forEach( tabTitle => {
       tabTitle.removeEventListener("click", this.handleTabTitleClick);
     } )
-  }
-
-  attributeChangedCallback(): void{
-
-  }
-
-  bindDomContent = (): void => {
-    const contentTemplate = document.createElement("template");
-    contentTemplate.innerHTML = this.domContent;
-    const shadowRoot = this.attachShadow({mode: "open"});
-    shadowRoot.appendChild(contentTemplate.content.cloneNode(true));
   }
 
   createTabMap = (): void => {
