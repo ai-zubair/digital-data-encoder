@@ -6,3 +6,13 @@ export const getRandomBit = ( stringLength: number ): string => {
   }
   return randomString;
 }
+
+export interface Attributes{
+  [key: string]: string;
+}
+
+export const setAttributes = (element: HTMLElement, attr: Attributes) => {
+  for (const attrName in attr) {
+    element.setAttribute(attrName, attr[attrName]);
+  }
+}

@@ -1,6 +1,7 @@
 import { CustomElement } from '../CustomElement/CustomElement';
 import { fancyInputListContent } from './fancyInputListContent';
 import { AppAttributes, AppEvents } from '../common/appConstants';
+import { Attributes, setAttributes } from '../common/utilityMethods';
 
 export enum FancyInputListAttributes{
   LIST_LENGTH = "list-length",
@@ -44,9 +45,12 @@ class FancyInputList extends CustomElement{
     this.inputListLength = inputListLength;
     for (let listInputIndex = 0; listInputIndex < inputListLength; listInputIndex++) {
       const listInput = document.createElement("input");
-      listInputIndex === 0 ? listInput.setAttribute(FancyInputListAttributes.AUTOFOCUS,"true") : listInput.setAttribute(FancyInputListAttributes.DISABLED,"true");
-      listInput.setAttribute(FancyInputListAttributes.INPUT_INDEX,`${listInputIndex}`);
-      listInput.setAttribute(FancyInputListAttributes.TYPE,`${inputType}`);
+      const listAttributes: Attributes = {
+        [FancyInputListAttributes.INPUT_INDEX]: `${listInputIndex}`,
+        [FancyInputListAttributes.TYPE]: `${inputType}`
+      };
+      listInputIndex === 0 ? listAttributes[FancyInputListAttributes.AUTOFOCUS] ="true" : listAttributes[FancyInputListAttributes.DISABLED] = "true";
+      setAttributes(listInput, listAttributes);
       listInput.classList.add("list-inputs");
       inputsContainer.appendChild(listInput);
     }
@@ -61,7 +65,6 @@ class FancyInputList extends CustomElement{
   handleInputValueChange = (event: ShadowDomEvent ): void=>{
     const currentInput = event.path[0] as HTMLInputElement;
     const inputValue = currentInput.value;
-    console.log("firing!",inputValue);
     if(this.isValidInputValue(inputValue)){
       this.updateInputListValue(currentInput, inputValue);
       const nextInput = currentInput.nextElementSibling;

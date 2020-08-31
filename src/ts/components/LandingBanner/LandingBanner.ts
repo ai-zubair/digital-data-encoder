@@ -15,15 +15,17 @@ class LandingBanner extends CustomElement{
 
   bindListeners = (): void => {
     const nextButton = this.shadowRoot?.querySelector(".button-text") as HTMLButtonElement;
-    nextButton.addEventListener("click",()=>{
-      const activeChildChangeEvent = new CustomEvent(AppEvents.ActiveComponentChange,{
-        detail:{
-          [AppAttributes.ComponentId]: AppComponentName.StreamLengthForm
-        }
-      })
-      this.parentElement?.dispatchEvent(activeChildChangeEvent);
-    })
+    nextButton.addEventListener("click",this.handleNextButtonClick);
 
+  }
+
+  handleNextButtonClick = () => {
+    const activeChildChangeEvent = new CustomEvent(AppEvents.ActiveComponentChange,{
+      detail:{
+        [AppAttributes.ComponentId]: AppComponentName.StreamLengthForm
+      }
+    })
+    this.parentElement?.dispatchEvent(activeChildChangeEvent);
   }
 
   connectedCallback():void{
